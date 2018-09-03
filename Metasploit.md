@@ -2,8 +2,9 @@ This file contains the commands showcased during the Null Humla session on `Meta
 
 
 
-Inorder to get started with metasploit, the database needs to be setup. Metasploit uses Postgresql as its database
+Inorder to get started with metasploit, the database needs to be setup. Metasploit uses **Postgresql** as its database
 service postgresql start
+
 This launches up the metasploit
 ```bash
 msfconsole
@@ -20,6 +21,7 @@ this command initializes the database again with the very beginning
 nmap -sn 192.168.1.1/24 -vv
 ```
 but the results of the options like "hosts" is never stored in the metasploit database. In that case using db_nmap can be fruitful 
+
 it saves all these ips to its database. It is helpful for future reference.
 
  -sn switch is a host scan in a subnet defined. -vv is the verbose. The number of v's can be increased in order to increase the verbosity.
@@ -43,6 +45,7 @@ services
 > Let's assume metasploitable 2 (Victim) IP to be 192.168.1.101
 
 Multiple workspaces can be created for easy switching and comparing different results.
+
 -a switch adds the new workspace named portscan
 ```bash
 workspace -a portscan
@@ -53,8 +56,12 @@ workspace portscan
 ```
 search command searches for the keyword in all its modules
 If you want to do a tcp scan then use the auxiliary written below in the command. Set the options according to the necessity.
-setg (set global variable) can be used instead of set so that you won't have to set it again and again for the same victim machine
+
+setg (set global variable) can be used instead of set so that you won't have to set it again and again for the same victim 
+machine
+
 run is used for running the module
+
 Here tcp portscan does the same work as that of nmap but doesnt gives the complete listings (like the name of services and their versions)
 ```bash
 search portscan
@@ -87,11 +94,13 @@ run
 ```
 
 Google search port numbers - Find service running on that port - find auxiliary model for identifying version
+
 If you can't find the service running on port, after some time it doesn't hurt to see nmap's finding
 
 > same data
 > port  21  vsftpd v 2.3.4
 The vulnerabilities in the versions of the following services can be exploited by typing in following commands
+
 search vsftpd name:exploit
 use ...
 set ...
