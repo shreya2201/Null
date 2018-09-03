@@ -20,7 +20,7 @@ this command initializes the database again with the very beginning
 ```bash
 nmap -sn 192.168.1.1/24 -vv
 ```
-but the results of the options like "hosts" is never stored in the metasploit database. In that case using db_nmap can be fruitful 
+but the results of the options like **hosts** is never stored in the metasploit database. In that case using db_nmap can be fruitful 
 
 it saves all these ips to its database. It is helpful for future reference.
 
@@ -55,6 +55,7 @@ This command switches between the workspaces
 workspace portscan
 ```
 search command searches for the keyword in all its modules
+
 If you want to do a tcp scan then use the auxiliary written below in the command. Set the options according to the necessity.
 
 setg (set global variable) can be used instead of set so that you won't have to set it again and again for the same victim 
@@ -62,7 +63,7 @@ machine
 
 run is used for running the module
 
-Here tcp portscan does the same work as that of nmap but doesnt gives the complete listings (like the name of services and their versions)
+**Here tcp portscan does the same work as that of nmap but doesnt gives the complete listings** (like the name of services and their versions)
 ```bash
 search portscan
 use auxiliary/scanner/portscan/tcp
